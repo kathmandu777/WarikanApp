@@ -33,6 +33,11 @@ INSTALLED_APPS = [
     'SplitingBills',
     # ユーザー管理用のアプリ
     'accounts',
+    # django-allauth関連設定
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',  # SNS認証を使わない場合も必要
 ]
 
 MIDDLEWARE = [
@@ -58,6 +63,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # allauth
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -117,3 +124,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# allauth
+
+AUTHENTICATION_BACKENDS = (
+    # 一般ユーザ用：メールアドレス認証
+    'allauth.account.auth_backends.AuthenticationBackend',
+    # 管理サイト用：ユーザ名認証
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SITE_ID = 1
+
+# ログアウトリンクをクリックでログアウト
+ACCOUNT_LOGOUT_ON_GET = True
+
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+
+# ログイン・ログアウト後のリダイレクト先
+LOGIN_REDIRECT_URL = 'SplitingBills:index'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
