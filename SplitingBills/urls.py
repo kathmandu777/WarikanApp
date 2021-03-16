@@ -15,7 +15,8 @@ urlpatterns = [
     path('spliting-bills-result/', undefined, name='spliting_bills_result'),
 
     """ユーザーがログインしているときのみ"""
-    path('history/', undefined, name='history'),  # 今までに作った料理の記録
+    # 今までに作った料理の記録
+    path('history/', undefined, name='history'),
     # 貸し一覧(他人にお金を払ってもらっていない状態)
     path('loan-list/', undefined, name='loan_list'),
     # 借り一覧(他人にお金を払ってない状態)
