@@ -1,6 +1,6 @@
 
 # 共通の設定は以下のファイルにかく
-from .settings_common import *
+from .common_settings import *
 
 
 try:
