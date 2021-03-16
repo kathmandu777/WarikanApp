@@ -18,6 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('SplitingBills.urls')),
+
     # django-allauthのurls.pyに処理を投げる
     path('accounts/', include('allauth.urls')),
 ]
