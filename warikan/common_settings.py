@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 割り勘用のアプリ
+    'SplitingBills',
 ]
 
 MIDDLEWARE = [
