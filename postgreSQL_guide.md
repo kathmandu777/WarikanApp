@@ -28,5 +28,9 @@
 
 <br>
 
+追記:
+- データベース消去 `DROP DATABASE DB_NAME;`
+<br>
+
 参考:
 - [Django PostgreSQL 設定](https://qiita.com/shigechiyo/items/9b5a03ceead6e5ec87ec)
