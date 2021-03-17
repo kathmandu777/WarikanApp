@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'warikan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,8 +127,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-# allauth
+######################
+####   allauth   #####
+######################
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTHENTICATION_BACKENDS = (
     # 一般ユーザ用：メールアドレス認証
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -140,8 +144,10 @@ SITE_ID = 1
 # ログアウトリンクをクリックでログアウト
 ACCOUNT_LOGOUT_ON_GET = True
 
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # ログイン・ログアウト後のリダイレクト先
-LOGIN_REDIRECT_URL = 'SplitingBills:index'
+LOGIN_REDIRECT_URL = 'SplitingBills:home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
