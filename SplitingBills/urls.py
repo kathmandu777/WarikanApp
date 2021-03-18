@@ -5,6 +5,7 @@ app_name = 'SplitingBills'
 urlpatterns = [
     path('', views.index, name='home'),
     # path('about/', undefined(修正必須), name='about'),  # アプリ概要
+    path('terms-of-service', views.index, name='terms_of_service'),  # 利用規約
 
     #### 割り勘(ログイン状態かどうかでUIを変える必要あり) ####
     # 食材入力

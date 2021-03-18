@@ -1,21 +1,43 @@
-{% extends "account/base.html" %}
+{% extends 'base.html' %}
 
-{% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block title %}サインアップ{% endblock %}
 
-{% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+{% block active_signup %}active{% endblock %}
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style">
+            <h1>サインアップ</h1>
+            <form method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-    <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+                {{ form.as_p }}
 
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                {% endif %}
+                <br>
+                <label for="agree"><a href="{% url 'SplitingBills:terms_of_service' %}">利用規約</a>を確認し、同意しました。</label>
+                <input type="checkbox" name="agree_privacy" id="agree" value="" required="required" />
+                <button id="submit" class="btn btn-primary" type="submit">登録</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#submit').prop('disabled', true);
+
+        $('#agree').on('click', function () {
+            if ($(this).prop('checked') == false) {
+                $('#submit').prop('disabled', true);
+            } else {
+                $('#submit').prop('disabled', false);
+            }
+        });
+    });
+</script>
 {% endblock %}
