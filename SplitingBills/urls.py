@@ -3,7 +3,7 @@ from . import views
 
 app_name = 'SplitingBills'
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', views.home, name='home'),
     # path('about/', undefined(修正必須), name='about'),  # アプリ概要
     path('terms-of-service', views.index, name='terms_of_service'),  # 利用規約
 
