@@ -8,11 +8,11 @@ urlpatterns = [
 
     #### 割り勘(ログイン状態かどうかでUIを変える必要あり) ####
     # 食材入力
-    # path('spliting-bills-food/', undefined(修正必須), name='spliting_bills_food'),
+    path('spliting-bills-food/', views.food, name='spliting_bills_food'),
     # 誰と食事をしたかを入力
-    # path('spliting-bills-who/', undefined(修正必須), name='spliting_bills_who'),
+    path('spliting-bills-who/', views.who, name='spliting_bills_who'),
     # 1人あたりの支払い金額
-    # path('spliting-bills-result/', undefined(修正必須), name='spliting_bills_result'),
+    path('spliting-bills-result/', views.result, name='spliting_bills_result'),
 
     #### ユーザーがログインしているときのみ #####
     # 今までに作った料理の記録
