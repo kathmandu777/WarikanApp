@@ -4,5 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-def index(req):
-    return HttpResponse('Hello World')
+def home(request):
+    return render(request, 'home.html')
+
+
+def terms_of_service(request):
+    return render(request, "terms_of_service.html")

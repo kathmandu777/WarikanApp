@@ -20,12 +20,73 @@
     <!-- Material Design Bootstrap -->
     <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     {% block head %}{% endblock %}
 </head>
 
-
 <body>
+
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
+        <a class="navbar-brand" href="{% url 'SplitingBills:home' %}">AppName</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+            aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'SplitingBills:home' %}">
+                        About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'SplitingBills:home' %}">
+                        今すぐ割り勘
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>Profile</a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info"
+                        aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="{% url 'CreditsCalculationApp:home' %}">My
+                            User Menu</a>
+                        <a class="dropdown-item" href="{% url 'account_logout' %}">Log out</a>
+                    </div>
+                    {% else %}
+                <li class="nav-item {% block active_signup %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                </li>
+                <li class="nav-item {% block active_login %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                </li>
+                {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    {% block header %}{% endblock %}
+
+    <!--メッセージが存在すれば表示-->
+    {% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert {{message.tags}}" role="alert" {% endif %}>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <!-- contents -->
+    {% block contents %}{% endblock %}
+
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
