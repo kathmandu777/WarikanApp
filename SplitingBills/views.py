@@ -6,3 +6,7 @@ from django.http import HttpResponse
 
 def home(request):
     return render(request, 'home.html')
+
+
+def terms_of_service(request):
+    return render(request, "terms_of_service.html")
