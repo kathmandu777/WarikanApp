@@ -11,7 +11,6 @@ class Money(models.Model):
 """
 
 
-
 class Meal(models.Model):
     when = models.DateField(null=True, verbose_name='日付')
     cost = models.IntegerField(verbose_name='価格')
@@ -19,6 +18,10 @@ class Meal(models.Model):
     meal_name = models.CharField(max_length=50, verbose_name='食事名')
     # idは自動でつけられる
     payer = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, verbose_name='購入者', related_name='Meal_payer')
+    
+
+    def __str__(self):
+        return self.meal_name # 表示名変更
 
 
 class Money(models.Model):
