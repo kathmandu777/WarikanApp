@@ -1,8 +1,8 @@
 from django import forms
+from .models import Meal, Money
+ 
+ 
 
- 
- 
- 
 """
 class FoodForm(forms.ModelForm):
 # ModelFormを継承
