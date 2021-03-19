@@ -30,7 +30,9 @@ class Money(models.Model):
     lender = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, verbose_name='貸した人', related_name='Money_lender')
     borrower = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, verbose_name='借りた人', related_name='Money_borrower')  # 借りた人
     is_Done = models.BooleanField(verbose_name='支払われたかどうか')
-
+    
+    def __str__(self):
+        return str(self.meal)
 
 """ old ver
 class Day(models.Model):
