@@ -1,5 +1,5 @@
 from django.db import models
-
+from accounts.models import CustomUser
 # Create your models here.
 
 """
@@ -11,6 +11,25 @@ class Money(models.Model):
 """
 
 
+
+class Meal(models.Model):
+    when = models.DateField(null=True, verbose_name='日付')
+    cost = models.IntegerField(verbose_name='価格')
+    participant = models.ManyToManyField(CustomUser, verbose_name='参加者(複数)')
+    meal_name = models.CharField(max_length=50, verbose_name='食事名')
+    # idは自動でつけられる
+    payer = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, verbose_name='購入者', related_name='Meal_payer')
+
+
+class Money(models.Model):
+    meal = models.ForeignKey(Meal, on_delete=models.PROTECT,verbose_name='どの食事についてか')
+    amount = models.IntegerField(verbose_name='金額')
+    lender = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, verbose_name='貸した人', related_name='Money_lender')
+    borrower = models.ForeignKey(CustomUser, on_delete=models.PROTECT, null=True, verbose_name='借りた人', related_name='Money_borrower')  # 借りた人
+    is_Done = models.BooleanField(verbose_name='支払われたかどうか')
+
+
+""" old ver
 class Day(models.Model):
 
     day = models.DateField(null=True, verbose_name='日付') # 日付
@@ -37,7 +56,7 @@ class Food(models.Model):
 
     def __str__(self):
         return self.title # 表示名変更
-    
+"""
 
 """
 1. Foodのuseddayから、その日の合計金額を出す

@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Food, Day, Person
+from .models import Meal, Money
 # Register your models here.
 
-admin.site.register(Food)
-admin.site.register(Day)
-admin.site.register(Person)
+admin.site.register(Money)
+admin.site.register(Meal)
