@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+body{
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.my-div-style{
+    margin: 0 auto;
+    max-width: 95%;
+    margin-top: 2rem;
+    min-height: 30vh;
+}
+
+.alert{
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Tableのスタイリングをそのまま移動 */
+.tablesorter th{
+    position: relative;
+    cursor: pointer;
+    text-align: left;
+}
+.tablesorter th::before, .tablesorter th::after{
+    content: '';
+    position: absolute;
+    z-index: 2;
+    right: 7px;
+    width: 0;
+    height: 0;
+    border: 4px dashed;
+    border-color: #333 transparent;
+    pointer-events: none;
+}
+.tablesorter th::before{
+    border-bottom-style: solid;
+    border-top: none;
+    top: 30%;
+}
+.tablesorter th::after{
+    border-top-style: solid;
+    border-bottom: none;
+    bottom: 30%;
+}
+.tablesorter th.tablesorter-headerAsc:after{
+    border: none;
+}
+.tablesorter th.tablesorter-headerAsc:before{
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.tablesorter th.tablesorter-headerDesc:before{
+    border: none;
+}
+.tablesorter th.tablesorter-headerDesc:after{
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.tablesorter th.sorter-false:before, .tablesorter th.sorter-false:after{
+    border: none;
+}
+/* ここまで、Tableのスタイリング */
+
+.my-row{
+    padding: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.target{
+    margin-top: 1rem;
+}
+
+.target-score{
+    font-size: 2rem;
+}
+
+.score{
+    font-size: 1.1rem;
+}
+
+.radius{
+    border-radius: 30px;
+}
+
+.smaller-button{
+    padding: .8rem 1rem;
+}
+
+i{
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.delete-div{
+    min-height: 30vh;
+    margin-top: 2rem;
+}
+
+.delete-btn{
+    padding: .8rem;
+}
+
+.btn a{
+    color: white;
+}
+
+.blank{
+    margin-bottom: 10vh;
+}
+
+.bigger-c{
+    font-size: 1.4rem;
+}
+
+.decorate{
+    text-decoration-line: underline;
+}
+
+.social-buttons .btn{
+    padding: 0;
+    border-radius: 50%;
+}
+
+.social-buttons .btn i{
+    font-size: 25px;
+    margin: 10px;
+    color: white;
+}
+
+.line{
+    height: 45px;
+    width: 45px;
+}
+
+.twitter{
+    background-color: #1B95E0;
+}
+
+.facebook{
+    background-color: #1877F2;
+}
+
+.description-box{
+    margin: 2rem auto;
+    width: 40rem;
+    max-width: 90%;
+    border-radius: 20px;
+    border: solid 1px lightblue;
+}
+
+.description{
+    margin: .3rem .5rem;
+}
+
+.description-box p{
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 0;
+}
+
+.description-box h3{
+    padding: 1rem;
+    font-size: 1.3rem;
+    padding-bottom: 0;
+}
+
+.share{
+    margin: 2rem;
+    margin-top: 3rem;
+}
+
+.share h3{
+    font-size: 1rem;
+}
+
+.drpdwn-btn{
+    margin: 0 .5rem;
+}
+
+@media screen and (max-width: 559px) {
+    .hide{
+        display: none;
+    }
+}
