@@ -19,7 +19,9 @@ class ResultView(TemplateView):
         
         context['from_user'] = ['rata', 'user1']
         context['to_user'] = ['user2', 'user3'] 
-        context['price'] = ['250', '150']
+        context['user_name'] = ['user4', 'user5']
+        context['amount'] = ['250', '150']
+        context['money_list'] = [{'user_name': 'user1', 'amount': '250'},{'user_name': 'user2', 'amount': '350'}]
         return context
 
 def food(request):
