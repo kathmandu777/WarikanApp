@@ -1,25 +1,15 @@
 from django import forms
 from .models import Meal, Money
- 
- 
+
+
 class FoodForm(forms.Form):
-    name = forms.CharField(label='食材')
-    food = forms.CharField(label='食事')
-    cost = forms.IntegerField(label='コスト')
-    check1 = forms.BooleanField()
+    food_name = forms.CharField(label="食材名")
+    food_cost = forms.IntegerField(label="金額")
+    isUsed1 = forms.BooleanField(label="使用したか", required=False)
+    isUsed2 = forms.BooleanField(label="使用したか", required=False)
+    isUsed3 = forms.BooleanField(label="使用したか", required=False)
+    isUsed4 = forms.BooleanField(label="使用したか", required=False)
+    isUsed5 = forms.BooleanField(label="使用したか", required=False)
+
     def save(self):
         pass
-
-
-FoodCreateFormSet = forms.formset_factory(FoodForm, extra=2)
-
-"""
-class FoodForm(forms.Form):
-# ModelFormを継承
-    class Meta():
-        model = Day
-        # どのmodelを利用するかmodel = モデル名で定義
-        fields = ('__all__')
-        # 表示するフィールド、'__all__'とすると全て
-        
-"""
