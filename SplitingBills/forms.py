@@ -2,9 +2,12 @@ from django import forms
 from .models import Meal, Money
  
  
-
+class FoodForm(forms.Form):
+    test = forms.CharField()
+    def save(self):
+        pass
 """
-class FoodForm(forms.ModelForm):
+class FoodForm(forms.Form):
 # ModelFormを継承
     class Meta():
         model = Day
