@@ -5,8 +5,13 @@
 <div class="container">
     <div class="row">
         <div class="my-div-style">
-            <h1>Welcome AppName</h1>
-            <p>This app is for someone.</p>
+            <form method="post">
+                <table>
+                    {{form.test}}
+                </table>
+                {%csrf_token%}
+                <input type="submit" class='btn btn-primary' value="次へ">
+            </form>
         </div>
     </div>
 </div>
