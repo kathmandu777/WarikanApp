@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from .forms import FoodForm
 
 from .models import Money
 
@@ -23,7 +24,9 @@ class ResultView(TemplateView):
 
 def food(request):
     # Mealの入力フォーム
-    return HttpResponse('This is food page.')
+    form = FoodForm()
+
+    return render(request, 'food.html', {'form': form})
 
 
 def who(request):
