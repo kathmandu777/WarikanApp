@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}About{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <h1 id="title" style="font-weight:bold;" align="center">このアプリについて</h1>
+
+    <div id="feature" class="content my-div-style">
+        <h2 align="center">~機能~</h2>
+        <br>
+        <ul id="feature-list">
+
+            <li>
+                <h5>セキュリティ</h5>
+                <p>ユーザーのパスワードはハッシュ化して保存されるので管理者には分かりません。</p>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="content my-div-style" align="center">
+        <h2>~バグ・要望等~</h2>
+        <br>
+        <p>バグや欲しい機能などの要望がありましたら、以下のリポジトリにIssueを立てていただけると幸いです。PullRequestもお待ちしております。</p>
+        <p>認証メールをGmailから送信する際にSMTPerrorが発生することがあります。(画面にはServerError500と表示されます) その際は、ご連絡ください。Errorlogを確認の上処理いたします。</p>
+        <a href="https://github.com/kathmandu777/WarikanApp/" target="_blank">GitHubリポジトリ</a>
+    </div>
+
+    <div class="content my-div-style" id="developer">
+        <h2 align="center">~開発者~</h2>
+        <div id="cardlayout-wrap">
+            <div class="card-list">
+                <h4 class="card-title">Kathmandu</h4>
+                <p class="card-text-tax">Frontend & Deploy</p>
+                <div class="sns"><a href="https://twitter.com/Kathmandumandu">Twitter</a></div>
+            </div>
+            <div class="card-list">
+                <h4 class="card-title">Unknown</h4>
+                <p class="card-text-tax">Backend</p>
+            </div>
+            <div class="card-list">
+                <h4 class="card-title">Unknown</h4>
+                <p class="card-text-tax">Debug</p>
+            </div>
+        </div>
+    </div>
+
+
+    <br><br>
+</div>
+
+<style>
+    .first-letter {
+        color: red;
+    }
+
+    #title {
+        padding: .5em 2em;
+        border-bottom: double;
+    }
+
+    .content {
+        padding: 1.5em .5em
+    }
+
+    @media screen and (max-width: 768px) {
+        #feature {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    #feature-list p {
+        padding-left: .5em;
+    }
+
+    #developer-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .sns {
+        text-align: center;
+    }
+
+
+    /* カードレイアウト部分をラッピングし、
+    Flexboxを指定"space-between"で各アイテムを均等に配置し、
+    最初と最後のアイテムを端に寄せます。*/
+    #cardlayout-wrap {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: justify;
+        margin: 2em auto;
+        max-width: 960px;
+        width: 100%;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+    }
+
+
+    /* カードレイアウトのタイトル部分 */
+    .card-title {
+        margin: 0.6em 0 0;
+        color: #333;
+        text-align: center;
+        font-size: 1.8em;
+    }
+
+    /* カードレイアウトの説明文部分 */
+    .card-text-tax {
+        margin: 0;
+        padding: 1em;
+        color: #818181;
+        text-align: center;
+    }
+
+
+    /* カードレイアウトを1カラムで配置 */
+    .card-list {
+        margin: 0.5em 0;
+        padding: 0;
+        width: 96%;
+        background: #f0f0f0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* 画面幅768px以上の場合カードレイアウトを2カラムで配置 */
+    @media screen and (min-width: 768px) {
+        .card-list {
+            width: calc(96% / 2);
+            /* 96%幅を2で割るという指定 */
+        }
+    }
+
+    /* 画面幅992px以上の場合カードレイアウトを2カラムで配置 */
+    @media screen and (min-width: 992px) {
+        .card-list {
+            width: calc(96% / 3);
+        }
+    }
+</style>
+{% endblock %}

@@ -7,8 +7,7 @@ urlpatterns = [
     # path('about/', undefined(修正必須), name='about'),  # アプリ概要
     path('terms-of-service', views.terms_of_service,
          name='terms_of_service'),  # 利用規約
-
-    #### 割り勘(ログイン状態かどうかでUIを変える必要あり) ####
+    path('about', views.about, name="about"),  # アプリについて
     # 食材入力
     # path('spliting-bills-food/', undefined(修正必須), name='spliting_bills_food'),
     # 誰と食事をしたかを入力
