@@ -1,16 +1,40 @@
 {% extends "base.html" %}
 
-{% block head_title %}Home{% endblock %}
+{% block title %}food{% endblock %}
 {% block contents %}
 <div class="container">
     <div class="row">
         <div class="my-div-style">
             <form method="post">
+                {{ formset.management_form }}
                 <table>
-                    {{form.test}}
+                    <thead>
+                        <tr>
+                            <th>食材名</th>
+                            <th>金額</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for form in formset %}
+                        <tr>
+                            {% for field in form %}
+                            <td>{{field}}</td>
+                            {%endfor%}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
-                {%csrf_token%}
-                <input type="submit" class='btn btn-primary' value="次へ">
+
+                <div class="field">
+                    <button type="submit">送信</button>
+                </div>
+
+                {% csrf_token %}
             </form>
         </div>
     </div>
