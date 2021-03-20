@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import FoodForm
+from .forms import FoodForm, FoodCreateFormSet
 
 from .models import Money
 
@@ -26,17 +26,18 @@ class ResultView(TemplateView):
 
 def food(request):
     # Mealの入力フォーム
+    
     if request.method == 'POST':
-        form = FoodForm(request.POST)
+        formset = FoodCreateFormSet(request.POST)
         """
         if form.is_valid():
             form.save()
             return redirect('who')
         """
     else:
-        form = FoodForm()
+        formset = FoodCreateFormSet()
     
-    return render(request, 'food.html', {'form': form})
+    return render(request, 'food.html', {'form': formset})
 
 
 def who(request):
