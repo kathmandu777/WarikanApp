@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .forms import FoodForm
 
@@ -26,8 +26,16 @@ class ResultView(TemplateView):
 
 def food(request):
     # Mealの入力フォーム
-    form = FoodForm()
-
+    if request.method == 'POST':
+        form = FoodForm(request.POST)
+        """
+        if form.is_valid():
+            form.save()
+            return redirect('who')
+        """
+    else:
+        form = FoodForm()
+    
     return render(request, 'food.html', {'form': form})
 
 
