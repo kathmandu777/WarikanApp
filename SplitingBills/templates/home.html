@@ -1,13 +1,36 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block head_title %}Home{% endblock %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+
 {% block contents %}
-<div class="container">
-    <div class="row">
-        <div class="my-div-style">
-            <h1>Welcome AppName</h1>
-            <p>This app is for someone.</p>
+<div class="text-center my-div-style">
+    <h1>AppName</h1>
+    <h2>平等に割り勘しよう</h2>
+    {% if user.is_authenticated %}
+    <p>ようこそ、{{user.username}}さん</p>
+    {%else%}
+    <a href="{% url 'account_login' %}" class="btn btn-primary radius">Log In</a>
+    {% endif %}
+
+    <div class="share">
+        <h3>アプリでの共有</h3>
+        <div class="social-buttons">
+            <a class="btn twitter" href="" rel="nofollow" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a class="btn line">
+                <div class="line-it-button" data-lang="ja" data-type="share-c" data-ver="3" data-url=""
+                    data-color="default" data-size="large" data-count="false" style="display: none;"></div>
+            </a>
+            <a href="" class="btn facebook"><i class="fab fa-facebook"></i></a>
         </div>
+
+        <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async"
+            defer="defer"></script>
     </div>
 </div>
+
 {% endblock %}
