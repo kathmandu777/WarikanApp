@@ -3,9 +3,16 @@ from .models import Meal, Money
  
  
 class FoodForm(forms.Form):
-    test = forms.CharField()
+    name = forms.CharField(label='食材')
+    food = forms.CharField(label='食事')
+    cost = forms.IntegerField(label='コスト')
+    check1 = forms.BooleanField()
     def save(self):
         pass
+
+
+FoodCreateFormSet = forms.formset_factory(FoodForm, extra=2)
+
 """
 class FoodForm(forms.Form):
 # ModelFormを継承
