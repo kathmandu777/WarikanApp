@@ -98,9 +98,13 @@ class UploadReceiptForm(forms.Form):
 class WhoForm(forms.Form):
 
     user_name = forms.CharField(required=False)
-
-    isJoin1 = forms.BooleanField()
-    isJoin2 = forms.BooleanField()
-    isJoin3 = forms.BooleanField()
-    isJoin4 = forms.BooleanField()
-    isJoin5 = forms.BooleanField()
+    isPaid = forms.BooleanField(required=False)
+    isJoin1 = forms.BooleanField(required=False)
+    isJoin2 = forms.BooleanField(required=False)
+    isJoin3 = forms.BooleanField(required=False)
+    isJoin4 = forms.BooleanField(required=False)
+    isJoin5 = forms.BooleanField(required=False)
+ 
+   
+ 
+    
