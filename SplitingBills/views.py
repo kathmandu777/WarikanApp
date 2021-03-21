@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponse
 from django.forms import formset_factory
-from .forms import FoodForm, UploadReceiptForm
-from .models import Money
+from .forms import FoodForm, UploadReceiptForm, WhoForm
+from .models import Money, Meal
 
 # Create your views here.
 
@@ -78,12 +78,13 @@ def food(request):
                     if post.startswith('food'):
                         print(post)"""
 
-
+                # データベースへ登録
                 for i in range(len(meal_cost)):
                     meal_dic = {}
                     if request.POST['food'+ str(i+1)]:
-                        key = request.POST['food'+ str(i+1)]
-                        meal_dic[key] = meal_cost[i]
+                        key = request.POST['food'+ str(i+1)] # 料理名
+                        meal_dic[key] = meal_cost[i] # 料理の値段
+                        Meal.objects.create(meal_name=key, cost=meal_cost[i])
                         meal_diclist.append(meal_dic)
 
                 print(meal_diclist)
@@ -111,7 +112,14 @@ class UploadReceipt(generic.FormView):
 def who(request):
     # 人の入力フォーム
     # Moneyにも記録
-    return HttpResponse('This is who page.')
+    meal = Meal.objects.get(id=1)
+    item = {
+        'name': meal.meal_name
+    }
+
+    form = WhoForm(initial=item)
+    context = {'form': form}
+    return render(request, 'who.html', context)
 
 
 def home(request):
