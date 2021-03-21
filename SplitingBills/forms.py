@@ -27,17 +27,13 @@ class UploadReceiptForm(forms.Form):
 
 class WhoForm(forms.Form):
 
-    choices = (
-            ('ja', '日本'),
-            ('us', 'アメリカ'),
-            ('uk', 'イギリス'),
-            ('ch', '中国'),
-            ('kr', '韓国')
-        )
-
-    name = forms.CharField(required=False)
-    user = forms.ChoiceField(choices=choices)
+    user_name = forms.CharField(required=False)
+    
     isJoin1 = forms.BooleanField()
+    isJoin2 = forms.BooleanField()
+    isJoin3 = forms.BooleanField()
+    isJoin4 = forms.BooleanField()
+    isJoin5 = forms.BooleanField()
  
    
  
