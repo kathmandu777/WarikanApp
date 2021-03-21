@@ -10,17 +10,37 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>食材名</th>
-                            <th>金額</th>
-                            
+                            <th>ユーザー</th>
+                            {% for meal in meallist %}
+                            <th>                                
+                                {{meal}}
+                            </th>
+                            {% endfor %}
                         </tr>
                     </thead>
                     <tbody>
-                        {{form.as_table}}
+                        {% for form in formset %}
+                        <tr class="input-row">
+                            <td>{{form.user_name}}</td>
+                            <td>{{form.isJoin1}}</td>
+                            <td>{{form.isJoin2}}</td>
+                            <td>{{form.isJoin3}}</td>
+                            <td>{{form.isJoin4}}</td>
+                            <td>{{form.isJoin5}}</td>                            
+                        </tr>
+                        {% endfor %}
+                        
                     </tbody>
                 </table>
 
                 <div class="field">
+                    <table>
+                        <tr>
+                            <td><button type="button" class="btn-clone">Add</button></td>
+                            <td><button type="button" class="btn-remove">Remove</button></td>
+                        </tr>
+                        
+                    </table>
                     <button type="submit" name='send'>送信</button>
                 </div>
 
@@ -29,4 +49,64 @@
         </div>
     </div>
 </div>
+
+<style>
+    input,
+    button {
+        display: block;
+    }
+
+    .btn-remove {
+        display: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block extrajs %}
+<script>
+    $(function () {
+
+        // button
+        var btn_clone = $('.btn-clone'); // 追加ボタン
+        var btn_remove = $('.btn-remove'); // 削除ボタン
+
+        // clone
+        btn_clone.click(function () {
+
+            var input_row = $('.input-row').last(); // 最後尾にあるinput
+            var cleared_input_row = input_row.clone(); //clone
+            cleared_input_row.find(':text').val(""); //フォームをきれいに
+            cleared_input_row.find('input[type="number"]').val(""); //フォームをきれいに
+            cleared_input_row.find(':checkbox').prop("checked", false); //フォームをきれいに
+            var index = cleared_input_row.find('input')[0].id.replace(/[^0-9]/g, ''); //現在のインデックス
+            var input_list = cleared_input_row.find('input');
+            for (var i = 0; i < input_list.length; i++) {
+                input_list[i].id = input_list[i].id.replace(/[0-9]/, parseInt(index, 10) + 1);
+                input_list[i].name = input_list[i].name.replace(/[0-9]/, parseInt(index, 10) + 1);
+            }
+            cleared_input_row.insertAfter(input_row); // 追加
+            document.getElementById('id_form-TOTAL_FORMS').value = String(parseInt(index, 10) + 2);
+
+
+            if ($('.input-row').length >= 2) {
+                $(btn_remove).show(); // inputが2つ以上あるときに削除ボタンを表示
+            }
+
+        });
+
+        // remove
+        btn_remove.click(function () {
+
+            $('.input-row').last().remove();
+            document.getElementById('id_form-TOTAL_FORMS').value =
+                parseInt($('.input-row').last().find('input')[0].id.replace(/[^0-9]/g, ''), 10) + 1;
+
+            if ($('.input-row').length < 2) {
+                btn_remove.hide(); // inputが2つ未満のときに削除ボタンを非表示 
+            }
+        });
+
+    });
+</script>
 {% endblock %}
