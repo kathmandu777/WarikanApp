@@ -38,7 +38,7 @@ def food(request):
         
         
         count = 0
-        print(request.POST)
+        
         for post in request.POST:
             if str(post).endswith('food_name'):
                 
