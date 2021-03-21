@@ -29,38 +29,13 @@ class ResultView(generic.TemplateView):
 
 
 def food(request):
-    
-    
+    FoodFormSet = formset_factory(FoodForm, extra=3)
     if request.method == 'POST':
-
-        new_initial = []
-        
-        
-        
-        count = 0
-        
-        for post in request.POST:
-            if str(post).endswith('food_name'):
-                
-                if request.POST['form-'+str(count)+'-' + 'food_name']:
-                    new_initial.append({'food_name': request.POST['form-'+str(count)+'-'+'food_name'],
-                                        'food_cost': request.POST['form-'+str(count)+'-'+'food_cost'],
-                                        })
-                    
-                    
-                count += 1
-                
-        if 'increase' in request.POST:
-            FoodFormSet = formset_factory(FoodForm, extra=1)
-            formset = FoodFormSet(initial=new_initial)
-            return render(request, 'food.html', {'formset': formset})
         
         if 'send' in request.POST:
-            FoodFormSet = formset_factory(FoodForm, extra=0)
             formset = FoodFormSet(request.POST)
             
-            if formset.is_valid():
-                
+            if formset.is_valid():                
                 meal_cost = [0] * 5
                 for form in formset:
                     food_name = form.cleaned_data.get('food_name')  # 使用しない
@@ -74,9 +49,7 @@ def food(request):
                             meal_cost[i] += food_cost / isUsedNum
                 print(meal_cost)
                 meal_diclist = []
-                """for post in request.POST:
-                    if post.startswith('food'):
-                        print(post)"""
+                
 
                 # データベースへ登録
                 for i in range(len(meal_cost)):
@@ -93,9 +66,7 @@ def food(request):
             return render(request, 'food.html', {'formset': formset})
 
     else:
-        FoodFormSet = formset_factory(FoodForm, extra=3)
         formset = FoodFormSet()
-        
     return render(request, 'food.html', {'formset': formset})
 
 
