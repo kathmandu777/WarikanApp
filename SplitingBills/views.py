@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponse
 from django.forms import formset_factory
-from .forms import FoodForm
+from .forms import FoodForm, UploadReceiptForm
 from .models import Money
 
 # Create your views here.
@@ -96,6 +96,16 @@ def food(request):
         formset = FoodFormSet()
         
     return render(request, 'food.html', {'formset': formset})
+
+
+class UploadReceipt(generic.FormView):
+    form_class = UploadReceiptForm
+    template_name = 'receipt.html'
+
+    def form_valid(self, form):
+        ocr_data = form.ocr_func()
+        print(ocr_data)
+        return redirect('SplitingBills:spliting_bills_food')
 
 
 def who(request):
