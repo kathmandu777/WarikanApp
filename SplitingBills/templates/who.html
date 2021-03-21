@@ -6,10 +6,11 @@
     <div class="row">
         <div class="my-div-style">
             <form method="post">
-                {{ form.management_form }}
+                {{ formset.management_form }}
                 <table>
                     <thead>
                         <tr>
+                            <th>支払った人</th>
                             <th>ユーザー</th>
                             {% for meal in meallist %}
                             <th>                                
@@ -21,6 +22,7 @@
                     <tbody>
                         {% for form in formset %}
                         <tr class="input-row">
+                            <td>{{form.isPaid}}</td>
                             <td>{{form.user_name}}</td>
                             <td>{{form.isJoin1}}</td>
                             <td>{{form.isJoin2}}</td>
