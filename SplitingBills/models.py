@@ -21,7 +21,7 @@ class Meal(models.Model):
 
     # 管理画面などで表示される文字列を定義
     def __str__(self):
-        return self.meal_name  # 表示名変更
+        return str(self.id) + self.meal_name  # 表示名変更
 
 
 class Money(models.Model):
