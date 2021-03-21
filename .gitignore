@@ -158,3 +158,6 @@ Thumbs.db #thumbnail cache on Windows
 
 
 # End of https://www.toptal.com/developers/gitignore/api/django
+
+test-receipt-image
+warikan-b58b18bf3e12.json
