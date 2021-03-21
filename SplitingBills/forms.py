@@ -13,3 +13,13 @@ class FoodForm(forms.Form):
 
     def save(self):
         pass
+
+
+class UploadReceiptForm(forms.Form):
+    receipt = forms.ImageField(label="レシート")
+
+    def ocr_func(self):
+        receipt = self.cleaned_data['receipt']
+        print(receipt)
+        # TODO:OCRの処理（以下の形式は例。どんな形でも大丈夫）
+        return [{"name": "milk", "cost": 150}, {"name": "banana", "cost": 200}]

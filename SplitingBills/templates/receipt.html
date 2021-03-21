@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}food{% endblock %}
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style">
+            <form method="POST" enctype="multipart/form-data">
+                {{form.as_p}}
+                {% csrf_token %}
+                <button type="submit" name='upload'>アップロード</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

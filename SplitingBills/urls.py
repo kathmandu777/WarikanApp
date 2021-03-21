@@ -13,7 +13,11 @@ urlpatterns = [
     # 誰と食事をしたかを入力
     path('spliting-bills-who/', views.who, name='spliting_bills_who'),
     # 1人あたりの支払い金額
-    path('spliting-bills-result/', ResultView.as_view(), name='spliting_bills_result'),
+    path('spliting-bills-result/', ResultView.as_view(),
+         name='spliting_bills_result'),
+    # レシート
+    path('spliting-bills-upload-receipt/',
+         views.UploadReceipt.as_view(), name='spliting_bills_upload_receipt'),
 
     #### ユーザーがログインしているときのみ #####
     # 今までに作った料理の記録
