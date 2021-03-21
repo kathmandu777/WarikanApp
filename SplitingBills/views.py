@@ -47,9 +47,8 @@ def food(request):
                     for i in range(5):
                         if form.cleaned_data.get("isUsed" + str(i + 1)):
                             meal_cost[i] += food_cost / isUsedNum
-                print(meal_cost)
-                meal_diclist = []
                 
+                id_list = []
 
                 # データベースへ登録
                 for i in range(len(meal_cost)):
@@ -57,10 +56,27 @@ def food(request):
                     if request.POST['food'+ str(i+1)]:
                         key = request.POST['food'+ str(i+1)] # 料理名
                         meal_dic[key] = meal_cost[i] # 料理の値段
-                        Meal.objects.create(meal_name=key, cost=meal_cost[i])
-                        meal_diclist.append(meal_dic)
 
-                print(meal_diclist)
+                        # 登録したいモデルから最後のデータを引っ張り出す
+                        last_id = Meal.objects.order_by('-pk')[:1].values()[0]['id']
+
+                        # 新規登録したいID
+                        regist_id = last_id + 1
+
+                        # 念の為、そのIDに何も入ってないか確認
+                        confirm_model = Meal.objects.filter( pk = regist_id )
+
+                        if len(confirm_model) != 0:
+                            print('登録エラー')
+                        else:
+                            # 登録
+                            Meal.objects.create(id = regist_id, meal_name=key, cost=meal_cost[i])
+                            id_list.append(regist_id)
+                 
+
+                
+                #print(id_list)
+                request.session['id_data'] = id_list
                 return redirect("SplitingBills:spliting_bills_who")
             
             return render(request, 'food.html', {'formset': formset})
@@ -83,13 +99,24 @@ class UploadReceipt(generic.FormView):
 def who(request):
     # 人の入力フォーム
     # Moneyにも記録
-    meal = Meal.objects.get(id=1)
-    item = {
-        'name': meal.meal_name
-    }
+    id_from_session = request.session.get('id_data') # Mealオブジェクトのidリスト ex. [14,15,16]
+    if id_from_session is None:
+        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
+        return redirect('SplitingBills:spliting_bills_food')
 
-    form = WhoForm(initial=item)
-    context = {'form': form}
+    
+    meallist = []
+    for pk in id_from_session:
+        meal = Meal.objects.filter(id=pk)
+        meallist.append(meal[0].meal_name)
+        
+        
+    
+    WhoFormSet = formset_factory(WhoForm, extra=3)
+    formset = WhoFormSet()
+    form = WhoForm()
+    context = {'formset': formset,
+               'meallist': meallist}
     return render(request, 'who.html', context)
 
 
