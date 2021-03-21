@@ -73,7 +73,21 @@ def food(request):
                         if form.cleaned_data.get("isUsed" + str(i + 1)):
                             meal_cost[i] += food_cost / isUsedNum
                 print(meal_cost)
-                # return reverse_lazy("SplitingBills:spliting_bills_who")
+                meal_diclist = []
+                """for post in request.POST:
+                    if post.startswith('food'):
+                        print(post)"""
+
+
+                for i in range(len(meal_cost)):
+                    meal_dic = {}
+                    if request.POST['food'+ str(i+1)]:
+                        key = request.POST['food'+ str(i+1)]
+                        meal_dic[key] = meal_cost[i]
+                        meal_diclist.append(meal_dic)
+
+                print(meal_diclist)
+                return redirect("SplitingBills:spliting_bills_who")
             
             return render(request, 'food.html', {'formset': formset})
 
