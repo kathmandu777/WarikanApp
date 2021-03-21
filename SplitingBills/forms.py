@@ -22,3 +22,22 @@ class UploadReceiptForm(forms.Form):
         print(receipt)
         # TODO:OCRの処理（以下の形式は例。どんな形でも大丈夫）
         return [{"name": "milk", "cost": 150}, {"name": "banana", "cost": 200}]
+
+
+class WhoForm(forms.Form):
+
+    choices = (
+            ('ja', '日本'),
+            ('us', 'アメリカ'),
+            ('uk', 'イギリス'),
+            ('ch', '中国'),
+            ('kr', '韓国')
+        )
+
+    name = forms.CharField(required=False)
+    user = forms.ChoiceField(choices=choices)
+    isJoin1 = forms.BooleanField()
+ 
+   
+ 
+    
