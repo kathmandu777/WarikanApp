@@ -99,22 +99,87 @@ class UploadReceipt(generic.FormView):
 def who(request):
     # 人の入力フォーム
     # Moneyにも記録
+    WhoFormSet = formset_factory(WhoForm, extra=3)
     id_from_session = request.session.get('id_data') # Mealオブジェクトのidリスト ex. [14,15,16]
     if id_from_session is None:
         # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
         return redirect('SplitingBills:spliting_bills_food')
 
-    
+    # ヘッダーの表示
     meallist = []
+    meal_obj_list = []
     for pk in id_from_session:
         meal = Meal.objects.filter(id=pk)
-        meallist.append(meal[0].meal_name)
-        
-        
+        if meal:
+            meal_obj_list.append(meal[0]) # Mealオブジェクトのリスト [obj:47, obj:48....]
+            meallist.append(meal[0].meal_name)
     
-    WhoFormSet = formset_factory(WhoForm, extra=3)
-    formset = WhoFormSet()
-    form = WhoForm()
+    if request.method == 'POST':
+        formset = WhoFormSet(request.POST)
+        print(request.POST)
+        if formset.is_valid():
+
+            # TODO: Moneyデータベースに追加するデータをformから出す処理を書く
+            rq = request.POST
+            data_dict = {}
+            for i in range(len(meal_obj_list)):
+                if 'form-'+str(i)+'-isPaid' in rq:
+                    paid_user = rq['form-'+str(i)+'-user_name']
+
+            meal_cost = [0] * len(meal_obj_list)
+
+            # Mealよりfood_costを抜き出す ex) food_cost = [350, 100, 250]
+            food_cost = []
+            for obj in meal_obj_list:
+                    tmp = obj.cost
+                    food_cost.append(tmp)
+            
+            
+            # TODO: ここからです よろしくお願いします
+            # 1人当たりの支払い金額のリストがほしいです ex) [350, 50, 125]
+            
+            for form in formset:
+                print('reset')
+                is_join_num = 0
+                for i in range(len(meal_obj_list)):
+                    if form.cleaned_data.get("isJoin" + str(i + 1)):
+                        is_join_num += 1 # 縦の個数カウント
+                        
+                        
+                
+                
+            print(meal_cost)
+
+
+
+
+
+
+            
+            """ モデルに追加する処理　アカウントがないので使わない
+            # 登録したいモデルから最後のデータを引っ張り出す
+            last_id = Money.objects.order_by('-pk')[:1].values()[0]['id']
+            # 新規登録したいID
+            regist_id = last_id + 1
+            # 念の為、そのIDに何も入ってないか確認
+            confirm_model = Money.objects.filter( pk = regist_id )
+
+            if len(confirm_model) != 0:
+                print('登録エラー')
+            else:
+                # 登録
+
+
+                #Money.objects.create(meal = MealObject ,)
+                id_list = []
+                id_list.append(regist_id)"""
+
+            # アカウントが使えない代わりに、sessionに保存して遷移
+            request.session['datas'] = data_dict
+            #return redirect("SplitingBills:spliting_bills_who")
+    
+    formset = WhoFormSet(request.POST)
+        
     context = {'formset': formset,
                'meallist': meallist}
     return render(request, 'who.html', context)
