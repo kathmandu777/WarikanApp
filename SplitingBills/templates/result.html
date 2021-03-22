@@ -6,22 +6,25 @@
 {% block contents %}
 <div class="container my-div-style">
     <div class="row">
+        
         <table id="myTable" class="table table-striped table-bordered " cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>ユーザー名</th>
+                    
                     <th>支払い総金額</th>
                 </tr>
             </thead>
             <tbody>
-                {% for money in money_list %}
+                {% for resultdata in resultdatas %}
                 <tr>
-                    <td>{{money.user_name}}</td>
-                    <td>{{money.amount}}</td>
+                    <td>{{resultdata.user_name}} -> {{payer}}</td>
+                    <td>{{resultdata.amount}}</td>
                 </tr>
                 {% empty %}
-                <p>Error:List is empty.</p>
+                <p>Error: List is Empty</p>
                 {% endfor %}
+                               
             </tbody>
         </table>
     </div>
