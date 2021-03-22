@@ -3,8 +3,9 @@ from .models import Meal, Money
 import os
 import io
 from django.core.validators import FileExtensionValidator
+from . import googlesettings
 # 絶対パス必ず
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"絶対パスでjsonのある場所を指定"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = googlesettings.jsonpath
 from google.cloud import vision
 
 
@@ -90,9 +91,8 @@ class UploadReceiptForm(forms.Form):
 
         name_list = [a for a in name_list if a != '']
         price_list = [a for a in price_list if a != '']
-        print(name_list)
-        print(price_list)
-        return name_list
+        
+        return name_list, price_list
 
 
 class WhoForm(forms.Form):
