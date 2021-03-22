@@ -6,12 +6,12 @@
 {% block contents %}
 <div class="container my-div-style">
     <div class="row">
-        
+
         <table id="myTable" class="table table-striped table-bordered " cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>ユーザー名</th>
-                    
+
                     <th>支払い総金額</th>
                 </tr>
             </thead>
@@ -24,10 +24,15 @@
                 {% empty %}
                 <p>Error: List is Empty</p>
                 {% endfor %}
-                               
+
             </tbody>
         </table>
     </div>
 </div>
-
+<style>
+    th,
+    td {
+        text-align: center;
+    }
+</style>
 {% endblock %}

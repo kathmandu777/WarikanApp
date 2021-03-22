@@ -1,151 +1,102 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
-
-body{
+body {
     font-family: 'Noto Sans JP', sans-serif;
 }
 
-.my-div-style{
+.my-div-style {
     margin: 0 auto;
     max-width: 95%;
     margin-top: 2rem;
     min-height: 30vh;
 }
 
-.alert{
+.alert {
     margin: 0 auto;
     width: 90%;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 
-/* Tableのスタイリングをそのまま移動 */
-.tablesorter th{
-    position: relative;
-    cursor: pointer;
-    text-align: left;
-}
-.tablesorter th::before, .tablesorter th::after{
-    content: '';
-    position: absolute;
-    z-index: 2;
-    right: 7px;
-    width: 0;
-    height: 0;
-    border: 4px dashed;
-    border-color: #333 transparent;
-    pointer-events: none;
-}
-.tablesorter th::before{
-    border-bottom-style: solid;
-    border-top: none;
-    top: 30%;
-}
-.tablesorter th::after{
-    border-top-style: solid;
-    border-bottom: none;
-    bottom: 30%;
-}
-.tablesorter th.tablesorter-headerAsc:after{
-    border: none;
-}
-.tablesorter th.tablesorter-headerAsc:before{
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-}
-.tablesorter th.tablesorter-headerDesc:before{
-    border: none;
-}
-.tablesorter th.tablesorter-headerDesc:after{
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-}
-.tablesorter th.sorter-false:before, .tablesorter th.sorter-false:after{
-    border: none;
-}
-/* ここまで、Tableのスタイリング */
-
-.my-row{
+.my-row {
     padding: 0.5rem;
     font-size: 1.1rem;
 }
 
-.target{
+.target {
     margin-top: 1rem;
 }
 
-.target-score{
+.target-score {
     font-size: 2rem;
 }
 
-.score{
+.score {
     font-size: 1.1rem;
 }
 
-.radius{
+.radius {
     border-radius: 30px;
 }
 
-.smaller-button{
+.smaller-button {
     padding: .8rem 1rem;
 }
 
-i{
+i {
     font-size: 1rem;
     margin-right: 0.5rem;
 }
 
-.delete-div{
+.delete-div {
     min-height: 30vh;
     margin-top: 2rem;
 }
 
-.delete-btn{
+.delete-btn {
     padding: .8rem;
 }
 
-.btn a{
+.btn a {
     color: white;
 }
 
-.blank{
+.blank {
     margin-bottom: 10vh;
 }
 
-.bigger-c{
+.bigger-c {
     font-size: 1.4rem;
 }
 
-.decorate{
+.decorate {
     text-decoration-line: underline;
 }
 
-.social-buttons .btn{
+.social-buttons .btn {
     padding: 0;
     border-radius: 50%;
 }
 
-.social-buttons .btn i{
+.social-buttons .btn i {
     font-size: 25px;
     margin: 10px;
     color: white;
 }
 
-.line{
+.line {
     height: 45px;
     width: 45px;
 }
 
-.twitter{
+.twitter {
     background-color: #1B95E0;
 }
 
-.facebook{
+.facebook {
     background-color: #1877F2;
 }
 
-.description-box{
+.description-box {
     margin: 2rem auto;
     width: 40rem;
     max-width: 90%;
@@ -153,37 +104,37 @@ i{
     border: solid 1px lightblue;
 }
 
-.description{
+.description {
     margin: .3rem .5rem;
 }
 
-.description-box p{
+.description-box p {
     font-size: 1rem;
     padding: 0.5rem;
     margin-bottom: 0;
 }
 
-.description-box h3{
+.description-box h3 {
     padding: 1rem;
     font-size: 1.3rem;
     padding-bottom: 0;
 }
 
-.share{
+.share {
     margin: 2rem;
     margin-top: 3rem;
 }
 
-.share h3{
+.share h3 {
     font-size: 1rem;
 }
 
-.drpdwn-btn{
+.drpdwn-btn {
     margin: 0 .5rem;
 }
 
 @media screen and (max-width: 559px) {
-    .hide{
+    .hide {
         display: none;
     }
 }
