@@ -118,15 +118,17 @@ def who(request):
 
     if request.method == 'POST':
         formset = WhoFormSet(request.POST)
-        print(request.POST)
+        
         if formset.is_valid():
-
-            # TODO: Moneyデータベースに追加するデータをformから出す処理を書く
+            
             rq = request.POST
             data_dict = {}
+            
             for form in formset:
                 if form.cleaned_data.get('isPaid'):
                     paid_user = form.cleaned_data.get('user_name')
+                    
+            
 
             meal_cost = [0] * len(meal_obj_list)
 
@@ -136,41 +138,46 @@ def who(request):
                 tmp = obj.cost
                 food_cost.append(tmp)
 
-            # TODO: ここからです よろしくお願いします
-            # 1人当たりの支払い金額のリストがほしいです ex) [350, 50, 125]
+            # 1人当たりの支払い金額のリスト ex) [350, 50, 125]
 
             for form in formset:
-                print('reset')
-                is_join_num = 0
+                
+                
                 for i in range(len(meal_obj_list)):
                     num_join_member = 0
                     for form in formset:
                         if form.cleaned_data.get('isJoin' + str(i + 1)):
                             num_join_member += 1
                     meal_cost[i] = food_cost[i] / num_join_member
-            print(meal_cost)
+            
+            user_name_list = []
+            joined_bool_list = []
+            joined_list = []
+            joined_meal = {}
+            for form in formset:
+                joined_bool_list = []
+                user_name = (form.cleaned_data.get('user_name'))
+                for i in range(len(meal_obj_list)):
+                    if form.cleaned_data.get('isJoin' + str(i + 1)):
+                        joined_bool_list.append(form.cleaned_data.get('isJoin' + str(i + 1)))
+                    else:
+                        joined_bool_list.append(0)
+                
+                user_name_list.append(user_name)
+                joined_list.append(joined_bool_list)
 
-            """ モデルに追加する処理　アカウントがないので使わない
-            # 登録したいモデルから最後のデータを引っ張り出す
-            last_id = Money.objects.order_by('-pk')[:1].values()[0]['id']
-            # 新規登録したいID
-            regist_id = last_id + 1
-            # 念の為、そのIDに何も入ってないか確認
-            confirm_model = Money.objects.filter( pk = regist_id )
+            # {'user': ['Duser1', 'Duser2', 'Duser3'], 'joined_bool': [[True, True, 0], [True, True, True], [0, True, True]]}
+            joined_meal = {'user': user_name_list, 'joined_bool': joined_list}
 
-            if len(confirm_model) != 0:
-                print('登録エラー')
-            else:
-                # 登録
+            
+            data_dict = {'paid_user': paid_user,
+                         'meal_cost': meal_cost,
+                         'joined_meal': joined_meal}
 
-
-                #Money.objects.create(meal = MealObject ,)
-                id_list = []
-                id_list.append(regist_id)"""
-
+            
             # アカウントが使えない代わりに、sessionに保存して遷移
-            request.session['datas'] = data_dict
-            # return redirect("SplitingBills:spliting_bills_who")
+            request.session['datadict'] = data_dict
+            return redirect("SplitingBills:spliting_bills_result")
 
     formset = WhoFormSet(request.POST or None)
 
@@ -178,6 +185,39 @@ def who(request):
                'meallist': meallist}
     return render(request, 'who.html', context)
 
+def result(request):
+    data_from_session = request.session.get('datadict')
+    if data_from_session is None:
+        # セッション切れや、セッションが空でURL直接入力したら入力画面にリダイレクト。
+        return redirect('SplitingBills:spliting_bills_food')
+    
+    
+    # resultdatasを作る処理
+    user_cost = 0
+    amount_list = []
+    user_list = []
+    for i, user in enumerate(data_from_session['joined_meal']['user']):
+        user_cost = 0
+        for j, user_bool in enumerate(data_from_session['joined_meal']['joined_bool'][i]):
+            if user_bool:
+                user_cost += data_from_session['meal_cost'][j]
+        user_list.append(user)
+        amount_list.append(user_cost)
+
+    
+    resultdatas = []
+    for i, user in enumerate(user_list):
+        
+        if user == data_from_session['paid_user']:
+            payer = user
+        else:
+            resultdatas.append({'user_name': user, 'amount': amount_list[i]})
+
+
+    
+    context = {'resultdatas':resultdatas,
+               'payer': payer}
+    return render(request, 'result.html', context)
 
 def home(request):
     return render(request, 'home.html')
