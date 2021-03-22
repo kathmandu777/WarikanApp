@@ -11,6 +11,7 @@ from .models import Money, Meal
 
 def food(request):
     ocr_from_session = request.session.get('ocr_data')
+    
     print(ocr_from_session)
     FoodFormSet = formset_factory(FoodForm, extra=3)
     if request.method == 'POST':
@@ -69,9 +70,11 @@ def food(request):
 
     else:
         ocr_init = []
-        for i,name in enumerate(ocr_from_session['ocr_name']):
-            cost = ocr_from_session['ocr_price'][i]
-            ocr_init.append({'food_name': name, 'food_cost': cost})
+        if ocr_from_session:
+
+            for i,name in enumerate(ocr_from_session['ocr_name']):
+                cost = ocr_from_session['ocr_price'][i]
+                ocr_init.append({'food_name': name, 'food_cost': cost})
         formset = FoodFormSet(initial=ocr_init)
     return render(request, 'food.html', {'formset': formset})
 
