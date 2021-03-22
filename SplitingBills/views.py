@@ -12,7 +12,7 @@ from .models import Money, Meal
 def food(request):
     ocr_from_session = request.session.get('ocr_data')
     
-    print(ocr_from_session)
+    # print(ocr_from_session)
     FoodFormSet = formset_factory(FoodForm, extra=3)
     if request.method == 'POST':
 
